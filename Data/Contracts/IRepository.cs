@@ -7,24 +7,24 @@ public interface IRepository<TEntity> where TEntity : class,IEntity
 
     #region Async Methods
 
-    Task AddAsync(TEntity entity,CancellationToken cancellationToken);
-    Task AddRangeAsync(IEnumerable<TEntity> entities,CancellationToken cancellationToken);
+    Task AddAsync(TEntity entity,CancellationToken cancellationToken,bool saveNow=true);
+    Task AddRangeAsync(IEnumerable<TEntity> entities,CancellationToken cancellationToken,bool saveNow=true);
     Task<TEntity> GetByIdAsync(CancellationToken cancellationToken,params object[] ids);
-    Task UpdateAsync(TEntity entity,CancellationToken cancellationToken);
-    Task UpdateRangeAsync(IEnumerable<TEntity> entities,CancellationToken cancellationToken);
-    Task DeleteAsync(TEntity entity,CancellationToken cancellationToken);
-    Task DeleteRangeAsync(IEnumerable<TEntity> entities,CancellationToken cancellationToken);
+    Task UpdateAsync(TEntity entity,CancellationToken cancellationToken,bool saveNow=true);
+    Task UpdateRangeAsync(IEnumerable<TEntity> entities,CancellationToken cancellationToken,bool saveNow=true);
+    Task DeleteAsync(TEntity entity,CancellationToken cancellationToken,bool saveNow=true);
+    Task DeleteRangeAsync(IEnumerable<TEntity> entities,CancellationToken cancellationToken,bool saveNow=true);
 
     #endregion
 
     #region Sync Methods
 
-    void Add(TEntity entity);
-    void AddRange(IEnumerable<TEntity> entities);
-    void Update(TEntity entity);
-    void UpdateRange(IEnumerable<TEntity> entities);
-    void Delete(TEntity entity);
-    void DeleteRange(IEnumerable<TEntity> entities);
+    void Add(TEntity entity,bool saveNow=true);
+    void AddRange(IEnumerable<TEntity> entities,bool saveNow=true);
+    void Update(TEntity entity,bool saveNow=true);
+    void UpdateRange(IEnumerable<TEntity> entities,bool saveNow=true);
+    void Delete(TEntity entity, bool saveNow = true);
+    void DeleteRange(IEnumerable<TEntity> entities, bool saveNow = true);
     TEntity GetById(params object[] ids);
 
     #endregion
