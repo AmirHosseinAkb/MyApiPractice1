@@ -4,6 +4,7 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System.Diagnostics.Metrics;
+using System.Linq.Expressions;
 using System.Threading;
 
 namespace Data.Repositories
@@ -23,6 +24,12 @@ namespace Data.Repositories
            _context=conext;
             Entities=_context.Set<TEntity>();
         }
+
+        public async Task<bool> IsExistAsync(Expression<Func<TEntity,bool>> expression, CancellationToken cancellationToken)
+        {
+            return await Entities.AnyAsync(expression, cancellationToken);
+        }
+
         public virtual void Add(TEntity entity, bool saveNow = true)
         {
             Assert.NotNull<TEntity>(entity,nameof(entity));
@@ -91,7 +98,6 @@ namespace Data.Repositories
         public virtual async Task<TEntity> GetByIdAsync(CancellationToken cancellationToken, params object[] ids)
         {
             var entity= await Entities.FindAsync(ids);
-            Assert.NotNull<TEntity>(entity,nameof(entity));
             return entity;
         }
 

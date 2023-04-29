@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using System.Linq.Expressions;
+using Entities;
 
 namespace Data.Contracts;
 
@@ -14,6 +15,8 @@ public interface IRepository<TEntity> where TEntity : class,IEntity
     Task UpdateRangeAsync(IEnumerable<TEntity> entities,CancellationToken cancellationToken,bool saveNow=true);
     Task DeleteAsync(TEntity entity,CancellationToken cancellationToken,bool saveNow=true);
     Task DeleteRangeAsync(IEnumerable<TEntity> entities,CancellationToken cancellationToken,bool saveNow=true);
+
+    Task<bool> IsExistAsync(Expression<Func<TEntity,bool>> expression, CancellationToken cancellationToken);
 
     #endregion
 

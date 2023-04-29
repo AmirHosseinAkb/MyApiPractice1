@@ -18,7 +18,7 @@ namespace Data.Repositories
         {
             var hashedPassword = SecurityHelper.HashPasswordSHA256(password);
             user.PasswordHash = hashedPassword;
-            await AddAsync(user, cancellationToken);
+            await base.AddAsync(user, cancellationToken);
         }
     }
 }

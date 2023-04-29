@@ -66,7 +66,7 @@ namespace Data
                     if (propertyValue.HasValue())
                     {
                         var newVal = propertyValue.Fa2En().FixPersianChars();
-                        property.SetValue(newVal,item.Entity);
+                        property.SetValue(item.Entity, newVal);
                     }
                 }
             }

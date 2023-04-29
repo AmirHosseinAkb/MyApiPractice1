@@ -37,6 +37,8 @@ namespace MyApiServer.Controllers
                 UserName = userDto.UserName,
                 IsActive = true
             };
+            if (await _userRepository.IsExistAsync(u => u.UserName == user.UserName, cancellationToken))
+                return BadRequest("کاربری با این نام کاربری از قبل وجود دارد");
             await _userRepository.AddUser(user, userDto.Password, cancellationToken);
             return new ApiResult<User>(true,ApiResultStatusCode.Success,user);
         }
