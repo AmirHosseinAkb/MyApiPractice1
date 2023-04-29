@@ -1,4 +1,6 @@
 using Data;
+using Data.Contracts;
+using Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +12,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region DBContext
+
 builder.Services.AddDbContext<MyApiContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyApiPrictice1DB")));
+
+
+#endregion
+
+
+#region IOC
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+#endregion
 
 var app = builder.Build();
 
